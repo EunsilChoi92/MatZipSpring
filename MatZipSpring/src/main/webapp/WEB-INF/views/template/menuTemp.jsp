@@ -31,7 +31,7 @@
 			</div>
 			<div id="headerRight">
 				<a href="/restaurant/restMap">지도</a>
-				<a class="ml15" href="/restaurant/restReg">등록</a>
+				<a class="ml15" href="/rest/restReg">등록</a>
 				<a class="ml15" href="/user/restFavorite">찜</a>
 			</div>
 		</header>

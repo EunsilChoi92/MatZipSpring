@@ -26,15 +26,13 @@
 				return;
 			}
 			const user_id = frm.user_id.value;
-			axios.get('/user/ajaxIdChk', {
-				params: {
-					user_id
-				}
+			axios.post('/user/ajaxIdChk', {
+				user_id
 			}).then(function(res) {
 				console.log(res);
-				if(res.data.result == 2) {
+				if(res.data == '2') {
 					idChkResult.innerText = '사용할 수 있는 아이디입니다.';
-				} else if(res.data.result == 3) {
+				} else if(res.data == '3') {
 					idChkResult.innerText = '이미 사용중인 아이디입니다.';
 				}
 			})

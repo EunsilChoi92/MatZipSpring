@@ -25,8 +25,14 @@ public class UserController {
 	// Bean 등록은 단 하나만 되어있어야 함
 	private UserService service;
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(HttpSession hs) {
+		hs.invalidate();
+		return "redirect:/";
+	}	
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login(Model model, @RequestParam(defaultValue="0") int err) {
+	public String login(Model model) {
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "user/login");
 		return ViewRef.TEMP_DEFAULT;

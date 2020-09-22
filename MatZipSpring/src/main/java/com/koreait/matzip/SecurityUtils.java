@@ -9,6 +9,10 @@ import com.koreait.matzip.user.model.UserVO;
 
 
 public class SecurityUtils {
+	public static int getLoginUserPk(HttpSession hs) {
+		return ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getI_user();
+	}
+	
 	public static int getLoginUserPk(HttpServletRequest request) {
 		return getLoginUser(request).getI_user();
 	}
@@ -36,7 +40,4 @@ public class SecurityUtils {
     }
     
     
-
-
-
 }

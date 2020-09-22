@@ -57,8 +57,8 @@
 						</span>
 					</div>
 					<div class="status branch_none">
-						<span class="cnt hit">${data.cntHits}</span>					
-						<span class="cnt favorite">${data.cntFavorite}</span>
+						<span class="cnt hit">${data.hits}</span>					
+						<span class="cnt favorite">${data.cnt_favorite}</span>
 					</div>
 				</div>
 				<div>
@@ -80,7 +80,7 @@
 										<c:if test="${fn:length(menuList) > 0 }">
 											<c:forEach var="i" begin="0" end="${fn:length(menuList) > 3 ? 2 : fn:length(menuList) - 1}">
 												<div class="menuItem">
-													<img src="/res/img/restaurant/${data.i_rest}/menu/${menuList[i].menu_pic}">
+													<img src="/resources/img/restaurant/${data.i_rest}/menu/${menuList[i].menu_pic}">
 												</div>
 											</c:forEach>
 										</c:if>

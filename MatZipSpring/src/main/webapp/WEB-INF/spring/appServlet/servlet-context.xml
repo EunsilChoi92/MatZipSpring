@@ -58,6 +58,13 @@
    <!-- mybatis가 쓰는 scan(spring 아님) mybatis에서는 DAO를 bean으로 등록해서 사용(DAO 만들 필요 없음) -->
    <!-- @Mapper를 찾음 -->
    <mybatis-spring:scan base-package="com.koreait.matzip"/>
+   
+   <interceptors>
+   		<interceptor>
+   			<mapping path="/**"/>
+   			<beans:bean class="com.koreait.matzip.LoginCheckInterceptor"/>
+   		</interceptor>
+   </interceptors>
 	
 	
 </beans:beans>

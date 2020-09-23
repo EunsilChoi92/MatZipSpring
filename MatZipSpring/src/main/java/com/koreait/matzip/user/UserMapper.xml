@@ -6,7 +6,7 @@
 		INSERT INTO t_user
 		(user_id, user_pw, salt, nm)
 		VALUES
-		(#{user_id}, #{user_pw}, #{salt}', #{nm})
+		(#{user_id}, #{user_pw}, #{salt}, #{nm})
 	</insert>
 	
 	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI">

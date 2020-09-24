@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,8 @@ import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
 import com.koreait.matzip.rest.model.RestDMI;
+import com.koreait.matzip.rest.model.RestFile;
+import com.koreait.matzip.rest.model.RestMenuVO;
 import com.koreait.matzip.rest.model.RestPARAM;
 import com.koreait.matzip.rest.model.RestRecMenuVO;
 import com.koreait.matzip.rest.model.RestVO;
@@ -73,6 +77,7 @@ public class RestController {
 		model.addAttribute("data", data);
 		model.addAttribute("recMenuList", service.selRestRecMenus(param));
 		model.addAttribute("css", new String[]{"common", "restDetail"});
+		model.addAttribute("menuList", service.selRestMenus(param));
 		return ViewRef.TEMP_MENU_TEMP;
 	}
 	
@@ -90,7 +95,7 @@ public class RestController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/recMenus")
+	@RequestMapping(value="/recMenus", method=RequestMethod.POST)
 	public String recMenus(MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		
 		int i_rest = service.insRecMenus(mReq);
@@ -102,11 +107,20 @@ public class RestController {
 	@RequestMapping("/ajaxDelRecMenu")
 	@ResponseBody
 	public int ajaxDelRecMenu(RestPARAM param, HttpSession hs) {
-		String path = "/resources/img/rest" + param.getI_rest() + "/rec_menu/";
+		String path = "/resources/img/rest/" + param.getI_rest() + "/rec_menu/";
 		String realPath = hs.getServletContext().getRealPath(path);
+		System.out.println("path : " + path);
+		System.out.println("realPath : " + realPath);
 		param.setI_user(SecurityUtils.getLoginUserPk(hs)); // 로그인한 유저의 i_user 담기
 		return service.delRecMenu(param, realPath);
 	}
 	
-	
+	@RequestMapping(value="/menus", method=RequestMethod.POST)
+	public String menus(@ModelAttribute RestFile param, HttpSession hs, RedirectAttributes ra) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		int result = service.insRestMenus(param, i_user);
+		
+		ra.addAttribute("i_rest", param.getI_rest());
+		return "redirect:/rest/detail";
+	}
 }

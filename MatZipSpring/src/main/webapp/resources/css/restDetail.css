@@ -40,6 +40,7 @@
 }
 
 .menuList {
+	position: relative;
 	display: flex;
 	height: 70px;
 }
@@ -50,6 +51,11 @@
 	height: 70px;
 	color: white;
 	position: relative;
+}
+.menuList .menuItem .delIconContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 .menuList .menuItem:not(:first-child) {

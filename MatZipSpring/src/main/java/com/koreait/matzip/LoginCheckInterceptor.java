@@ -19,11 +19,11 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		String[] uriArr = uri.split("/");
 		
 		System.out.println("uriArr.length : " + uriArr.length);
-		if(uriArr[1].equals("res")) { // 리소스 (js, css, img)
+		if(uri.equals("/")) {
+			return super.preHandle(request, response, handler);
+		} else if(uriArr[1].equals("res")) { // 리소스 (js, css, img)
 			return true;
-		} else if(uriArr.length < 3) { // 주소가 이상한 경우
-			return false;
-		}
+		} 
 		
 		System.out.println("인터셉터!!");
 		

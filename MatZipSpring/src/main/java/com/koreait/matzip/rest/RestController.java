@@ -76,9 +76,15 @@ public class RestController {
 		model.addAttribute(Const.VIEW, "rest/restDetail");
 		model.addAttribute("data", data);
 		model.addAttribute("recMenuList", service.selRestRecMenus(param));
-		model.addAttribute("css", new String[]{"common", "restDetail"});
-		model.addAttribute("menuList", service.selRestMenus(param));
+		model.addAttribute("css", new String[]{"common", "restDetail", "swiper-bundle.min"});
+		// model.addAttribute("menuList", service.selRestMenus(param));
 		return ViewRef.TEMP_MENU_TEMP;
+	}
+	
+	@RequestMapping("/ajaxSelMenuList")
+	@ResponseBody
+	public List<RestMenuVO> ajaxSelMenuList(RestPARAM param) {
+		return service.selRestMenus(param);
 	}
 	
 	@RequestMapping("/del")
@@ -112,7 +118,13 @@ public class RestController {
 		System.out.println("path : " + path);
 		System.out.println("realPath : " + realPath);
 		param.setI_user(SecurityUtils.getLoginUserPk(hs)); // 로그인한 유저의 i_user 담기
-		return service.delRecMenu(param, realPath);
+		return service.delRestRecMenu(param, realPath);
+	}
+	
+	@RequestMapping("/ajaxDelMenu")
+	@ResponseBody
+	public int ajaxDelMenu(RestPARAM param) { // i_rest, seq, menu_pic 담겨 있음
+		return service.delRestMenu(param);
 	}
 	
 	@RequestMapping(value="/menus", method=RequestMethod.POST)

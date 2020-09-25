@@ -18,18 +18,7 @@ public class FileUtils {
 	public static String getExt(String fileNm) {
 		return fileNm.substring(fileNm.lastIndexOf("."));
 	}
-	
-	public static void delFile(String path) {
-		File file = new File(path);
-		if(file.exists()) {
-			if(file.delete()) {
-				System.out.println("파일 삭제 성공 >.<");
-			} else {
-				System.out.println("파일 삭제 실패 흑흑 ㅜㅜ");
-			}
-		}
-	}
-	
+		
 	public static String getRandomUUID(MultipartFile mf) {
 		String originFileNm = mf.getOriginalFilename();
 		String ext = getExt(originFileNm);
@@ -47,6 +36,16 @@ public class FileUtils {
 		}
 		
 		return saveFileNm;
+	}
+	
+	public static boolean delFile(String path) {
+		File file = new File(path);
+		if(file.exists()) {
+			System.out.println("파일 삭제 성공 >.<");
+			return file.delete();
+		}
+		System.out.println("파일 삭제 실패 흑흑 ㅜㅜ");
+		return false;
 	}
 	
 }

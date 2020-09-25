@@ -98,12 +98,13 @@
 		</if>
 	</delete>
 	
+	
 	<delete id="delRestMenu" parameterType="RestPARAM">
 		DELETE A FROM t_restaurant_menu A
-		INNER JOIN t_restaurant B
-		ON A.i_rest = B.i_rest
-		WHERE B.i_rest = #{i_rest}
-		AND B.i_user = #{i_user}
+		WHERE i_rest = #{i_rest}
+		<if test="seq > 0">
+			AND seq = #{seq}
+		</if>
 	</delete>
 	
 	<delete id="delRest" parameterType="RestPARAM">

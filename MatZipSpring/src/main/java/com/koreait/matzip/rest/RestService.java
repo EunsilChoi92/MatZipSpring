@@ -67,14 +67,6 @@ public class RestService {
 		mapper.delRestMenu(param);
 		mapper.delRest(param);
 	}
-
-	public int delRestRecMenu(RestPARAM param) {
-		return mapper.delRestRecMenu(param);
-	}
-	
-	public int delRestMenu(RestPARAM param) {
-		return mapper.delRestMenu(param);
-	}
 	
 	public int delRest(RestPARAM param) {
 		return mapper.delRest(param);
@@ -166,7 +158,7 @@ public class RestService {
 		return mapper.selRestMenus(param);
 	}
 	
-	public int delRecMenu(RestPARAM param, String realPath) {
+	public int delRestRecMenu(RestPARAM param, String realPath) {
 		// 파일 삭제
 		List<RestRecMenuVO> list = mapper.selRestRecMenus(param);
 		
@@ -186,4 +178,18 @@ public class RestService {
 		}
 		return mapper.delRestRecMenu(param);
 	}	
+	
+	public int delRestMenu(RestPARAM param) {
+		// 파일 삭제
+		if(param.getMenu_pic() != null && !"".equals(param.getMenu_pic())) {
+			String path = Const.realPath + "/resources/img/rest/" + param.getI_rest() + "/menu/";
+			System.out.println("보여줘잉 : " + path + param.getMenu_pic());
+			if(FileUtils.delFile(path + param.getMenu_pic())) {
+				return mapper.delRestMenu(param);
+			} else {
+				return Const.FAIL;
+			}			
+		}
+		return mapper.delRestMenu(param);
+	}
 }

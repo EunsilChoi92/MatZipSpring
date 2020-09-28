@@ -9,6 +9,11 @@ import com.koreait.matzip.user.model.UserVO;
 @Mapper
 public interface UserMapper {
 	public int insUser(UserPARAM param);
+	public int insFavorite(UserPARAM param);
+	
 	public UserDMI selUser(UserPARAM param);
+	
+	public int delFavorite(UserPARAM param);
+	
 	
 }

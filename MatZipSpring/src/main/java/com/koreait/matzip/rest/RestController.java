@@ -2,6 +2,7 @@ package com.koreait.matzip.rest;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -45,11 +46,14 @@ public class RestController {
 	
 	@RequestMapping(value = "/ajaxGetList", produces = {"application/json; charset=UTF-8"})
 	@ResponseBody 
-	public List<RestDMI> ajaxGetList(RestPARAM param) {
-		System.out.println("sw_lat :" + param.getSw_lat());
-		System.out.println("sw_lng :" + param.getSw_lng());
-		System.out.println("ne_lat :" + param.getNe_lat());
-		System.out.println("ne_lng :" + param.getNe_lng());
+	public List<RestDMI> ajaxGetList(RestPARAM param, HttpSession hs) {
+//		System.out.println("sw_lat :" + param.getSw_lat());
+//		System.out.println("sw_lng :" + param.getSw_lng());
+//		System.out.println("ne_lat :" + param.getNe_lat());
+//		System.out.println("ne_lng :" + param.getNe_lng());
+		
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		param.setI_user(i_user);
 		
 		return service.selRestList(param);
 	}
@@ -70,13 +74,18 @@ public class RestController {
 	}
 	
 	@RequestMapping("/detail")
-	public String detail(Model model, RestPARAM param) {
+	public String detail(Model model, RestPARAM param, HttpServletRequest req) {
+		int i_user = SecurityUtils.getLoginUserPk(req);
+		param.setI_user(i_user);
+		service.updAddHits(param, req);
 		RestDMI data = service.selRest(param);
+		
 		model.addAttribute(Const.TITLE, data.getNm());
 		model.addAttribute(Const.VIEW, "rest/restDetail");
+		model.addAttribute("css", new String[]{"common", "restDetail", "swiper-bundle.min"});
+		
 		model.addAttribute("data", data);
 		model.addAttribute("recMenuList", service.selRestRecMenus(param));
-		model.addAttribute("css", new String[]{"common", "restDetail", "swiper-bundle.min"});
 		// model.addAttribute("menuList", service.selRestMenus(param));
 		return ViewRef.TEMP_MENU_TEMP;
 	}

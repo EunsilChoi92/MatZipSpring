@@ -24,6 +24,8 @@ public interface RestMapper {
 	public int delRestRecMenu(RestPARAM param);
 	public int delRestMenu(RestPARAM param);
 	public int delRest(RestPARAM param);
+	
+	public void updAddHits(RestPARAM param);
 
 	
 }

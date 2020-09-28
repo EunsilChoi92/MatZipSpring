@@ -50,4 +50,16 @@ public class UserService {
 		
 		return mapper.insUser(param);
 	}
+	
+	public int ajaxToggleFavorite(UserPARAM param) {
+		switch(param.getProc_type()) {
+		case "ins":
+			return mapper.insFavorite(param);
+		case "del":
+			return mapper.delFavorite(param);
+		}
+		
+		return 0;
+		
+	}
 }

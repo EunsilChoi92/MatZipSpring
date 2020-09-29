@@ -82,7 +82,7 @@ public class RestController {
 		
 		model.addAttribute(Const.TITLE, data.getNm());
 		model.addAttribute(Const.VIEW, "rest/restDetail");
-		model.addAttribute("css", new String[]{"common", "restDetail", "swiper-bundle.min"});
+		model.addAttribute(Const.CSS, new String[]{"common", "restDetail", "swiper-bundle.min"});
 		
 		model.addAttribute("data", data);
 		model.addAttribute("recMenuList", service.selRestRecMenus(param));
@@ -144,4 +144,6 @@ public class RestController {
 		ra.addAttribute("i_rest", param.getI_rest());
 		return "redirect:/rest/detail";
 	}
+	
+
 }

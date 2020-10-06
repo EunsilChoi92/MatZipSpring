@@ -1,5 +1,7 @@
 package com.koreait.matzip.user;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
+import com.koreait.matzip.rest.model.RestPARAM;
+import com.koreait.matzip.rest.model.RestRecMenuVO;
+import com.koreait.matzip.user.model.UserDMI;
 import com.koreait.matzip.user.model.UserPARAM;
 import com.koreait.matzip.user.model.UserVO;
 
@@ -101,7 +106,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/favorite")
-	public String favorite(Model model) {	
+	public String favorite(Model model, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		UserPARAM param = new UserPARAM();
+		param.setI_user(i_user);
+		
+		List<UserDMI> list = service.selFavoriteList(param);
+		model.addAttribute("data", list);
+		
 		model.addAttribute(Const.CSS, new String[] {"userFavorite"});
 		model.addAttribute(Const.TITLE, "찜 리스트");
 		model.addAttribute(Const.VIEW, "user/favorite");
